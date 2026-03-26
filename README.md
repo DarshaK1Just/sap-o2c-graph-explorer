@@ -2,6 +2,8 @@
 
 A full-stack AI assistant for exploring SAP Order-to-Cash business processes through natural language. Built with React, FastAPI, and SQLite.
 
+🔗 **[Live Demo](https://replit.com/@DarshaKakani/sap-o2c-graph-explorer)** | 📦 **[GitHub Repo](https://github.com/DarshaK1Just/sap-o2c-graph-explorer)**
+
 **Try example queries:**
 
 - "Trace the full flow of billing document 90504248"
@@ -221,8 +223,13 @@ Verifies:
 
 ---
 
-## 🚀 Deployment
+## 🚀 Live Demo & Deployment
 
+**Already Deployed:**
+
+- 🎉 **[Replit Live Demo](https://replit.com/@DarshaKakani/sap-o2c-graph-explorer)** ← Try it now!
+
+**Deploy Your Own:**
 See [QUICKSTART.md](QUICKSTART.md) for:
 
 - Railway (5 min, recommended)
