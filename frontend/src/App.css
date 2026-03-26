@@ -1,0 +1,653 @@
+.refShell {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.refHeader {
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  border-bottom: 1px solid #eef2f7;
+  background: #ffffff;
+  font-size: 13px;
+}
+
+.crumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.crumbMuted {
+  color: #94a3b8;
+}
+.crumbSep {
+  color: #cbd5e1;
+}
+.crumbStrong {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.headerStatus {
+  font-size: 12px;
+  color: #64748b;
+  max-width: 420px;
+  text-align: right;
+}
+
+.refBody {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  min-height: 0;
+  height: calc(100vh - 42px); /* lock to viewport under header */
+  overflow: hidden; /* prevent page scroll from moving sidebar */
+}
+
+.canvasWrap {
+  position: relative;
+  min-height: 0;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.graphTopControls {
+  position: absolute;
+  z-index: 30;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+}
+
+.graphSearchGroup,
+.graphZoomGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.graphSearchGroup input {
+  min-width: 220px;
+  padding: 6px 10px;
+  font-size: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+}
+
+.graphInspector {
+  position: absolute;
+  z-index: 25;
+  right: 16px;
+  bottom: 16px;
+  width: min(320px, calc(40% - 32px));
+  max-height: 42%;
+  overflow: hidden;
+  background: rgba(255,255,255,0.94);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.inspectorHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.dismissInspector,
+.dismissSearchResults {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  color: #64748b;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.dismissInspector:hover,
+.dismissSearchResults:hover {
+  color: #0f172a;
+  background: rgba(148, 163, 184, 0.2);
+}
+
+.inspectorBody {
+  max-height: calc(42vh - 80px);
+  overflow: auto;
+}
+
+.insJson {
+  margin-top: 10px;
+  font-size: 11px;
+  background: #f8fafc;
+  color: #0f172a;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px;
+  overflow: auto;
+  max-height: 180px;
+}
+
+.overlayResultsPanel {
+  position: absolute;
+  z-index: 28;
+  top: 46px;
+  left: 12px;
+  width: min(420px, calc(100% - 24px));
+  max-height: 260px;
+  overflow: auto;
+  background: rgba(255,255,255,0.94);
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px;
+  backdrop-filter: blur(5px);
+}
+
+
+.graphInspector {
+  position: absolute;
+  z-index: 25;
+  bottom: 16px;
+  left: 16px;
+  width: min(320px, calc(40% - 24px));
+  max-height: 45%;
+  overflow: auto;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.refBtnGhost {
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #0f172a;
+  border-radius: 10px;
+  font-size: 12px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.refBtnGhost:hover {
+  border-color: #cbd5e1;
+}
+
+.refBtnDark {
+  border: 1px solid #0f172a;
+  background: #0f172a;
+  color: #ffffff;
+  border-radius: 10px;
+  font-size: 12px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.refBtnDark:hover {
+  background: #111c33;
+}
+
+.refBtnPrimary {
+  border: 1px solid #0f172a;
+  background: #0f172a;
+  color: #ffffff;
+  border-radius: 10px;
+  font-size: 12px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.refBtnPrimary:hover {
+  background: #111c33;
+}
+
+.refCanvas {
+  height: 100%;
+  padding: 8px;
+  min-height: 0;
+}
+
+.graph {
+  height: 100%;
+  width: 100%;
+  border: 1px solid #f1f5f9;
+  border-radius: 10px;
+  background: #fbfdff;
+  position: relative;
+  overflow: hidden;
+}
+
+.graph.graph--minimized .d3Graph {
+  display: none;
+}
+
+.graphMinimized {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 600;
+  background: rgba(248, 250, 252, 0.95);
+  border: 1px dashed #cbd5e1;
+  border-radius: 10px;
+}
+
+.graphMinimized {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 600;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 10px;
+  margin: 8px;
+}
+
+.d3Graph {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.node {
+  transition: opacity 0.15s ease, stroke-width 0.15s ease;
+}
+
+.node.dimmed {
+  opacity: 0.25;
+}
+
+.link.highlighted {
+  stroke: #1d4ed8;
+  stroke-width: 2.5;
+  stroke-opacity: 1;
+}
+
+.link.faded {
+  opacity: 0.2;
+}
+
+.nodeTooltip {
+  position: fixed; /* relative to viewport for stable placement */
+  z-index: 40;
+  width: 320px;
+  max-height: 360px;
+  overflow: auto;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+  backdrop-filter: blur(6px);
+}
+.tipTitle {
+  font-size: 13px;
+  font-weight: 900;
+  margin-bottom: 4px;
+}
+.tipSub {
+  font-size: 11px;
+  color: #64748b;
+  margin-bottom: 10px;
+}
+.tipMeta {
+  display: grid;
+  gap: 6px;
+}
+.tipRow {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 10px;
+  font-size: 11px;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 6px;
+}
+.tipRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.tipK {
+  color: #94a3b8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tipV {
+  color: #0f172a;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tipHint {
+  margin-top: 10px;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.zoomDock {
+  position: absolute;
+  z-index: 25;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 6px;
+  backdrop-filter: blur(6px);
+}
+.zoomBtn {
+  width: 42px;
+  height: 32px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+  cursor: pointer;
+  font-size: 12px;
+}
+.zoomBtn:hover {
+  border-color: #cbd5e1;
+}
+
+.overlayHint {
+  position: absolute;
+  z-index: 22;
+  left: 16px;
+  top: 62px;
+  width: 420px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 10px;
+  backdrop-filter: blur(6px);
+}
+.overlayTitle {
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.overlayRow {
+  display: flex;
+  gap: 10px;
+}
+.overlayRow input {
+  flex: 1;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 9px 10px;
+  font-size: 12px;
+}
+.overlayResults {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 260px;
+  overflow: auto;
+}
+
+.dismissSearchResults {
+  margin-left: 8px;
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  color: #64748b;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.dismissSearchResults:hover {
+  color: #0f172a;
+  background: rgba(148, 163, 184, 0.2);
+}
+
+.overlayResult {
+  text-align: left;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 9px 10px;
+  cursor: pointer;
+}
+.overlayResult:hover {
+  border-color: #cbd5e1;
+}
+.overlayResultTitle {
+  font-size: 12px;
+  font-weight: 700;
+}
+.overlayResultMeta {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.sidebar {
+  border-left: 1px solid #eef2f7;
+  background: #ffffff;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden; /* sidebar itself should not push page scroll */
+}
+.sideTitle {
+  font-size: 13px;
+  font-weight: 800;
+}
+.sideSubtitle {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 2px;
+  margin-bottom: 14px;
+}
+
+.agentCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.agentAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+}
+.agentName {
+  font-size: 13px;
+  font-weight: 800;
+}
+.agentRole {
+  font-size: 11px;
+  color: #94a3b8;
+}
+.agentIntro {
+  font-size: 12px;
+  color: #334155;
+  margin-bottom: 12px;
+}
+
+.muted {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.chatLog {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 2px;
+  min-height: 0;
+}
+.refChatLog {
+  border: 1px solid #f1f5f9;
+  border-radius: 12px;
+  padding: 10px;
+  background: #ffffff;
+  min-height: 0;
+}
+
+.msg {
+  display: flex;
+}
+.msg.user {
+  justify-content: flex-end;
+}
+.bubble {
+  max-width: 95%;
+  border-radius: 12px;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  font-size: 12px;
+}
+.msg.user .bubble {
+  background: #0f172a;
+  border-color: #0f172a;
+  color: #ffffff;
+}
+.msgText {
+  white-space: pre-wrap;
+}
+.sqlLabel {
+  margin-top: 10px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #334155;
+}
+.msg.user .sqlLabel {
+  color: #e2e8f0;
+}
+.sql {
+  margin-top: 6px;
+  font-size: 11px;
+  background: #0b1220;
+  color: #e2e8f0;
+  border-radius: 10px;
+  padding: 10px;
+  overflow: auto;
+  max-height: 200px;
+}
+
+.awaiting {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #334155;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 8px 10px;
+  background: #ffffff;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #22c55e;
+}
+
+.chatInput {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.refChatInput {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 10px;
+  background: #ffffff;
+}
+.chatInput input {
+  flex: 1;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 12px;
+}
+.refSend {
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.refSend:hover {
+  border-color: #94a3b8;
+}
+
+.inspector {
+  margin-top: 12px;
+  border: 1px solid #f1f5f9;
+  border-radius: 12px;
+  padding: 12px;
+  background: #ffffff;
+}
+.inspectorTitle {
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.insLine {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 4px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+.insLine:last-child {
+  border-bottom: none;
+}
+.insK {
+  color: #94a3b8;
+}
+.insV {
+  font-weight: 700;
+  color: #0f172a;
+}
+.insJson {
+  margin-top: 10px;
+  font-size: 11px;
+  background: #f8fafc;
+  color: #0f172a;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px;
+  overflow: auto;
+  max-height: 220px;
+}
